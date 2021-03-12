@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["accounts",""],["auth",""],["categories",""],["client",""],["deposit_switch",""],["errors",""],["holdings",""],["identity",""],["institutions",""],["investment_transactions",""],["item",""],["liabilities",""],["link_token",""],["processor",""],["sandbox",""],["transactions",""],["webhooks",""]]});

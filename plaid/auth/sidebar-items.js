@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ACHNumber","An array of ACH numbers identifying accounts."],["AccountNumberCollection",""],["BACSNumber","An array of BACS numbers identifying accounts."],["EFTNumber","An array of EFT numbers identifying accounts."],["GetAuthOptions",""],["GetAuthResponse",""],["IBANNumber","An array of IBAN numbers identifying accounts."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["SANDBOX_INSTITUTION",""],["SANDBOX_INSTITUTION_QUERY",""],["TEST_PRODUCTS",""]],"fn":[["get_test_client",""]]});

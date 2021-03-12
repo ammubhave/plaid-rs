@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AccountBalances",""],["GetTransactionsOptions",""],["GetTransactionsResponse",""],["Location",""],["PaymentMeta","Transaction information specific to inter-bank transfers."],["RefreshTransactionsResponse",""],["Transaction",""]]});

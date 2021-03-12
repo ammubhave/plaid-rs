@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CreatePublicTokenResponse",""],["ExchangePublicTokenResponse",""],["GetItemResponse",""],["InvalidateAccessTokenResponse",""],["Item","Metadata about the Item."],["ItemStatus",""],["ProductStatus",""],["RemoveItemResponse",""],["UpdateItemWebhookResponse",""],["WebhookStatus",""]]});

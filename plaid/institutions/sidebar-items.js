@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GetInstitutionByIdOptions",""],["GetInstitutionByIdResponse",""],["GetInstitutionsOptions",""],["GetInstitutionsResponse",""],["Institution",""],["SearchInstitutionsOptions",""],["SearchInstitutionsResponse",""]]});
