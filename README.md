@@ -18,7 +18,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-plaid = "0.3"
+plaid = "1"
 ```
 
 To make API calls, you need to create an instance of the Plaid Client. The client can be created by calling `plaid::Client::new(client_id, secret, environment)`, or by calling `plaid::Client::from_env()` and passing the credentials in `PLAID_CLIENT_ID`, `PLAID_SECRET`, and `PLAID_ENVIRONMENT` environment variables.
