@@ -6,10 +6,10 @@
 //!
 //! ```toml
 //! [dependencies]
-//! plaid = { git = "https://github.com/ammubhave/plaid-rs" }
+//! plaid = "0.3"
 //! ```
 //!
-//! You can get an instance of the Plaid client by calling `plaid::Client::new(client_id, secret, environment)`, or by calling `plaid::client::Client::from_env()` and passing the credentials in `PLAID_CLIENT_ID`, `PLAID_SECRET`, and `PLAID_ENVIRONMENT` environment variables.
+//! To make API calls, you need to create an instance of the Plaid **[`Client`][client]**. The client can be created by calling `plaid::Client::new(client_id, secret, environment)`, or by calling `plaid::Client::from_env()` and passing the credentials in `PLAID_CLIENT_ID`, `PLAID_SECRET`, and `PLAID_ENVIRONMENT` environment variables.
 //!
 //! ## Examples
 //!

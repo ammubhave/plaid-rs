@@ -1,11 +1,16 @@
 # plaid-rs
 
 ![Build Status](https://github.com/ammubhave/plaid-rs/actions/workflows/rust.yml/badge.svg)
+[![](http://meritbadge.herokuapp.com/plaid)](https://crates.io/crates/plaid)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Rust async client library for accessing the [Plaid API](https://plaid.com/docs/api/).
 
-Documentation for this crate can be found at [https://ammubhave.github.io/plaid-rs/plaid/](https://ammubhave.github.io/plaid-rs/plaid/)
+## Documentation
+
+Please see the [documentation website](https://ammubhave.github.io/plaid-rs), or at [docs.rs](https://docs.rs/plaid/).
+
+The source code can be found at [https://github.com/ammubhave/plaid-rs](https://github.com/ammubhave/plaid-rs). Source code for older versions (<= 0.2.0) of this crate can found at [https://github.com/nathankot/plaid-rust](https://github.com/nathankot/plaid-rust).
 
 ## Usage
 
@@ -13,10 +18,10 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-plaid = { git = "https://github.com/ammubhave/plaid-rs" }
+plaid = "0.3"
 ```
 
-You can get an instance of the Plaid client by calling `plaid::Client::new(client_id, secret, environment)`, or by calling `plaid::Client::from_env()` and passing the credentials in `PLAID_CLIENT_ID`, `PLAID_SECRET`, and `PLAID_ENVIRONMENT` environment variables.
+To make API calls, you need to create an instance of the Plaid Client. The client can be created by calling `plaid::Client::new(client_id, secret, environment)`, or by calling `plaid::Client::from_env()` and passing the credentials in `PLAID_CLIENT_ID`, `PLAID_SECRET`, and `PLAID_ENVIRONMENT` environment variables.
 
 ## Examples
 
