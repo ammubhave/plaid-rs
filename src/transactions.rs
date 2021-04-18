@@ -221,6 +221,7 @@ mod tests {
 
     use super::*;
     use crate::client::tests::{get_test_client, SANDBOX_INSTITUTION, TEST_PRODUCTS};
+    use crate::errors::Error;
 
     #[tokio::test]
     async fn test_get_transactions() {
@@ -240,7 +241,12 @@ mod tests {
             .get_transactions(&token_resp.access_token, start_date, end_date, None)
             .await;
         while resp.is_err() {
-            assert_eq!(resp.unwrap_err().error_code, "PRODUCT_NOT_READY");
+            let err = resp.unwrap_err();
+            if let Error::Plaid(err) = err {
+                assert_eq!(err.error_code, "PRODUCT_NOT_READY");
+            } else {
+                assert!(false);
+            }
             tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
             resp = client
                 .get_transactions(&token_resp.access_token, start_date, end_date, None)
@@ -263,7 +269,12 @@ mod tests {
             )
             .await;
         while resp.is_err() {
-            assert_eq!(resp.unwrap_err().error_code, "PRODUCT_NOT_READY");
+            let err = resp.unwrap_err();
+            if let Error::Plaid(err) = err {
+                assert_eq!(err.error_code, "PRODUCT_NOT_READY");
+            } else {
+                assert!(false);
+            }
             tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
             resp = client
                 .get_transactions(

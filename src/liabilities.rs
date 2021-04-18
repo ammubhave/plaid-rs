@@ -227,7 +227,7 @@ struct GetLiabilitiesRequest<'a> {
 #[derive(Serialize, Debug, Clone)]
 pub struct GetLiabilitiesOptions<'a> {
     /// A list of account_ids to retrieve for the Item
-    account_ids: &'a [&'a str],
+    pub account_ids: &'a [&'a str],
 }
 
 #[derive(Deserialize, Debug, Clone)]

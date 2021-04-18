@@ -12,8 +12,41 @@ pub struct ErrorResponse {
     pub display_message: Option<String>,
 }
 
+#[derive(Debug)]
+pub enum Error {
+    /// Error returned by the Plaid API
+    Plaid(PlaidError),
+    /// Error when sending request
+    Request(reqwest::Error),
+}
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Error - {}",
+            match self {
+                Self::Plaid(err) => err.to_string(),
+                Self::Request(err) => err.to_string(),
+            },
+        )
+    }
+}
+
+impl From<PlaidError> for Error {
+    fn from(err: PlaidError) -> Self {
+        Self::Plaid(err)
+    }
+}
+
+impl From<reqwest::Error> for Error {
+    fn from(err: reqwest::Error) -> Self {
+        Self::Request(err)
+    }
+}
+
 #[derive(Debug, Clone)]
-pub struct Error {
+pub struct PlaidError {
     /// A broad categorization of the error. Safe for programatic use.
     /// Possible values: INVALID_REQUEST, INVALID_INPUT, INSTITUTION_ERROR, RATE_LIMIT_EXCEEDED, API_ERROR, ITEM_ERROR, ASSET_REPORT_ERROR, RECAPTCHA_ERROR, OAUTH_ERROR, PAYMENT_ERROR, BANK_TRANSFER_ERROR
     pub error_type: String,
@@ -30,7 +63,7 @@ pub struct Error {
     pub status_code: reqwest::StatusCode,
 }
 
-impl fmt::Display for Error {
+impl fmt::Display for PlaidError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,

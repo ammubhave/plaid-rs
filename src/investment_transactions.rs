@@ -53,13 +53,13 @@ struct GetInvestmentTransactionsRequest<'a> {
 pub struct GetInvestmentTransactionsOptions<'a> {
     /// A list of account_ids to retrieve for the Item
     #[serde(skip_serializing_if = "Option::is_none")]
-    account_ids: Option<&'a [&'a str]>,
+    pub account_ids: Option<&'a [&'a str]>,
     /// The number of transactions to fetch. Maximum: 500
     #[serde(skip_serializing_if = "Option::is_none")]
-    count: Option<i32>,
+    pub count: Option<i32>,
     /// The number of transactions to skip when fetching transaction history
     #[serde(skip_serializing_if = "Option::is_none")]
-    offset: Option<i32>,
+    pub offset: Option<i32>,
 }
 
 impl Default for GetInvestmentTransactionsOptions<'_> {
@@ -129,6 +129,7 @@ mod tests {
     use std::ops::Sub;
 
     use crate::client::tests::{get_test_client, SANDBOX_INSTITUTION};
+    use crate::errors::Error;
 
     // The following test fails because plaid responds back with NOT_FOUND. Needs debugging.
     #[ignore]
@@ -149,7 +150,12 @@ mod tests {
             .get_investment_transactions(&token_resp.access_token, start_date, end_date, None)
             .await;
         while resp.is_err() {
-            assert_eq!(resp.unwrap_err().error_code, "PRODUCT_NOT_READY");
+            let err = resp.unwrap_err();
+            if let Error::Plaid(err) = err {
+                assert_eq!(err.error_code, "PRODUCT_NOT_READY");
+            } else {
+                assert!(false);
+            }
             tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
             resp = client
                 .get_investment_transactions(&token_resp.access_token, start_date, end_date, None)

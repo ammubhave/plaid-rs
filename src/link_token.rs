@@ -61,6 +61,8 @@ pub struct LinkTokenConfigs<'a> {
     pub products: Option<&'a [&'a str]>,
     /// The destination URL to which any webhooks should be sent.
     pub webhook: Option<&'a str>,
+    /// The access_token associated with the Item to update, used when updating or modifying an existing access_token. Used when launching Link in update mode, when completing the Same-day (manual) Micro-deposit flow, or (optionally) when initializing Link as part of the Payment Initiation (UK and Europe) flow.
+    pub access_token: Option<&'a str>,
     /// The name of the Link customization from the Plaid Dashboard to be applied to Link.
     pub link_customization_name: Option<&'a str>,
     pub account_filters: Option<HashMap<&'a str, HashMap<&'a str, Vec<&'a str>>>>,
@@ -83,6 +85,8 @@ struct CreateLinkTokenRequest<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     webhook: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    access_token: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     link_customization_name: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
     account_filters: Option<HashMap<&'a str, HashMap<&'a str, Vec<&'a str>>>>,
@@ -101,6 +105,7 @@ impl Default for LinkTokenConfigs<'_> {
             country_codes: &["US"],
             products: None,
             webhook: None,
+            access_token: None,
             link_customization_name: None,
             account_filters: None,
             redirect_uri: None,
@@ -181,6 +186,7 @@ impl Client {
                 user: configs.user,
                 products: configs.products,
                 webhook: configs.webhook,
+                access_token: configs.access_token,
                 link_customization_name: configs.link_customization_name,
                 account_filters: configs.account_filters,
                 redirect_uri: configs.redirect_uri,

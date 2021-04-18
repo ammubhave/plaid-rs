@@ -1,7 +1,7 @@
 use reqwest;
 use reqwest::Url;
 
-use crate::errors::{Error, ErrorResponse, Result};
+use crate::errors::{ErrorResponse, PlaidError, Result};
 
 #[derive(Debug, Copy, Clone)]
 pub enum Environment {
@@ -68,21 +68,21 @@ impl Client {
             .post(self.get_host().join(url).unwrap())
             .json(req)
             .send()
-            .await
-            .unwrap();
+            .await?;
         if resp.status() == reqwest::StatusCode::OK {
-            Ok(resp.json().await.unwrap())
+            Ok(resp.json().await?)
         } else {
             let status_code = resp.status();
-            let err_resp: ErrorResponse = resp.json().await.unwrap();
-            Err(Error {
+            let err_resp: ErrorResponse = resp.json().await?;
+            Err(PlaidError {
                 request_id: err_resp.request_id,
                 error_type: err_resp.error_type,
                 error_code: err_resp.error_code,
                 error_message: err_resp.error_message,
                 display_message: err_resp.display_message,
                 status_code: status_code,
-            })
+            }
+            .into())
         }
     }
 
