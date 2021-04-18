@@ -303,6 +303,17 @@
 <span id="300">300</span>
 <span id="301">301</span>
 <span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">chrono</span>::{<span class="ident">DateTime</span>, <span class="ident">NaiveDate</span>, <span class="ident">Utc</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -527,6 +538,7 @@
 
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">client</span>::<span class="ident">tests</span>::{<span class="ident">get_test_client</span>, <span class="ident">SANDBOX_INSTITUTION</span>, <span class="ident">TEST_PRODUCTS</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">errors</span>::<span class="ident">Error</span>;
 
     <span class="attribute">#[<span class="ident">tokio</span>::<span class="ident">test</span>]</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_get_transactions</span>() {
@@ -546,7 +558,12 @@
             .<span class="ident">get_transactions</span>(<span class="kw-2">&amp;</span><span class="ident">token_resp</span>.<span class="ident">access_token</span>, <span class="ident">start_date</span>, <span class="ident">end_date</span>, <span class="prelude-val">None</span>)
             .<span class="kw">await</span>;
         <span class="kw">while</span> <span class="ident">resp</span>.<span class="ident">is_err</span>() {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">resp</span>.<span class="ident">unwrap_err</span>().<span class="ident">error_code</span>, <span class="string">&quot;PRODUCT_NOT_READY&quot;</span>);
+            <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">resp</span>.<span class="ident">unwrap_err</span>();
+            <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Error</span>::<span class="ident">Plaid</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">err</span> {
+                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">err</span>.<span class="ident">error_code</span>, <span class="string">&quot;PRODUCT_NOT_READY&quot;</span>);
+            } <span class="kw">else</span> {
+                <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>);
+            }
             <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>(<span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">5</span>)).<span class="kw">await</span>;
             <span class="ident">resp</span> <span class="op">=</span> <span class="ident">client</span>
                 .<span class="ident">get_transactions</span>(<span class="kw-2">&amp;</span><span class="ident">token_resp</span>.<span class="ident">access_token</span>, <span class="ident">start_date</span>, <span class="ident">end_date</span>, <span class="prelude-val">None</span>)
@@ -569,7 +586,12 @@
             )
             .<span class="kw">await</span>;
         <span class="kw">while</span> <span class="ident">resp</span>.<span class="ident">is_err</span>() {
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">resp</span>.<span class="ident">unwrap_err</span>().<span class="ident">error_code</span>, <span class="string">&quot;PRODUCT_NOT_READY&quot;</span>);
+            <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">resp</span>.<span class="ident">unwrap_err</span>();
+            <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Error</span>::<span class="ident">Plaid</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">err</span> {
+                <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">err</span>.<span class="ident">error_code</span>, <span class="string">&quot;PRODUCT_NOT_READY&quot;</span>);
+            } <span class="kw">else</span> {
+                <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>);
+            }
             <span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">sleep</span>(<span class="ident">tokio</span>::<span class="ident">time</span>::<span class="ident">Duration</span>::<span class="ident">from_secs</span>(<span class="number">5</span>)).<span class="kw">await</span>;
             <span class="ident">resp</span> <span class="op">=</span> <span class="ident">client</span>
                 .<span class="ident">get_transactions</span>(
@@ -607,4 +629,5 @@
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "plaid";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="plaid"></div>
+    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

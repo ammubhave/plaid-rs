@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["plaid"] = [{"text":"impl Display for Error","synthetic":false,"types":[]}];
+implementors["plaid"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"plaid/errors/enum.Error.html\" title=\"enum plaid::errors::Error\">Error</a>","synthetic":false,"types":["plaid::errors::Error"]},{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"struct\" href=\"plaid/errors/struct.PlaidError.html\" title=\"struct plaid::errors::PlaidError\">PlaidError</a>","synthetic":false,"types":["plaid::errors::PlaidError"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["plaid"] = [{"text":"impl Copy for Environment","synthetic":false,"types":[]}];
+implementors["plaid"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html\" title=\"trait core::marker::Copy\">Copy</a> for <a class=\"enum\" href=\"plaid/client/enum.Environment.html\" title=\"enum plaid::client::Environment\">Environment</a>","synthetic":false,"types":["plaid::client::Environment"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
