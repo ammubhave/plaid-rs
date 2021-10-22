@@ -109,7 +109,7 @@ impl Client {
         options: Option<GetInvestmentTransactionsOptions<'a>>,
     ) -> Result<GetInvestmentTransactionsResponse> {
         self.send_request(
-            "investment/transactions/get",
+            "investments/transactions/get",
             &GetInvestmentTransactionsRequest {
                 client_id: &self.client_id,
                 secret: &self.secret,
@@ -132,7 +132,6 @@ mod tests {
     use crate::errors::Error;
 
     // The following test fails because plaid responds back with NOT_FOUND. Needs debugging.
-    #[ignore]
     #[tokio::test]
     async fn test_get_investment_transactions() {
         let client = get_test_client();
