@@ -6,7 +6,7 @@ use crate::client::Client;
 use crate::errors::Result;
 use crate::item::Item;
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Transaction {
     /// The unique ID of the transaction. Like all Plaid identifiers, the transaction_id is case sensitive.
     pub transaction_id: String,
@@ -54,7 +54,7 @@ pub struct Transaction {
 }
 
 /// Transaction information specific to inter-bank transfers.
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct PaymentMeta {
     /// The transaction reference number supplied by the financial institution.
     pub reference_number: Option<String>,
@@ -74,7 +74,7 @@ pub struct PaymentMeta {
     pub reason: Option<String>,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Location {
     /// The street address where the transaction occurred.
     pub address: Option<String>,

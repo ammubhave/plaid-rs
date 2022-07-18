@@ -1,7 +1,7 @@
 [package]
 name = "plaid"
-version = "1.0.2"
-authors = ["Amol Bhave <amol@amolbhave.com>"]
+version = "1.0.3"
+authors = ["Thomas Moore <thomas@bend.green>", "Amol Bhave <amol@amolbhave.com>"]
 edition = "2018"
 description = "Plaid Client for Rust"
 readme = "README.md"
