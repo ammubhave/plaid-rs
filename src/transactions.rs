@@ -199,7 +199,7 @@ impl Client {
         // options: Option<GetTransactionsOptions<'a>>,
     ) -> Result<SyncTransactionsResponse> {
         self.send_request(
-            "transactions/get",
+            "transactions/sync",
             &SyncTransactionsRequest {
                 client_id: &self.client_id,
                 secret: &self.secret,
