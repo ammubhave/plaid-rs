@@ -121,6 +121,17 @@ struct GetTransactionsRequest<'a> {
     options: Option<GetTransactionsOptions<'a>>,
 }
 
+#[derive(Serialize)]
+struct SyncTransactionsRequest<'a> {
+    client_id: &'a str,
+    secret: &'a str,
+    access_token: &'a str,
+    cursor: &'a str,
+    count: u8
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    // options: Option<GetTransactionsOptions<'a>>,
+}
+
 #[derive(Serialize, Debug, Clone)]
 pub struct GetTransactionsOptions<'a> {
     /// A list of account_ids to retrieve for the Item
@@ -130,6 +141,19 @@ pub struct GetTransactionsOptions<'a> {
     /// The number of transactions to skip. The default value is 0.
     pub offset: i32,
 }
+
+#[derive(Deserialize, Debug, Clone)]
+pub struct SyncTransactionsResponse {
+    /// A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
+    pub request_id: String,
+    pub next_cursor: String,
+    pub has_more: bool,
+    /// An array containing the added transactions
+    pub added: Vec<Transaction>,
+    // modified
+    // removed
+}
+
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct GetTransactionsResponse {
@@ -159,6 +183,34 @@ pub struct RefreshTransactionsResponse {
 }
 
 impl Client {
+    /// Sync transaction data.
+    ///
+    /// The /transactions/sync handler
+    ///
+    /// * `access_token` - The access token associated with the Item data is being requested for.
+    /// * `start_date` - The earliest date for which data should be returned.
+    /// * `end_date` - The latest date for which data should be returned.
+    /// * `options` - An optional object to be used with the request.
+    pub async fn sync_transactions<'a>(
+        &self,
+        access_token: &str,
+        cursor: &str,
+        count: u8,
+        // options: Option<GetTransactionsOptions<'a>>,
+    ) -> Result<SyncTransactionsResponse> {
+        self.send_request(
+            "transactions/get",
+            &SyncTransactionsRequest {
+                client_id: &self.client_id,
+                secret: &self.secret,
+                access_token,
+                cursor,
+                count
+            },
+        )
+        .await
+    }
+
     /// Get transaction data.
     ///
     /// The /transactions/get endpoint allows developers to receive user-authorized transaction data for credit, depository, and some loan-type accounts (the list of loan-type accounts supported is the same as for Liabilities; for details, see the /liabilities/get endpoint). For transaction history from investments accounts, use the Investments endpoint instead. Transaction data is standardized across financial institutions, and in many cases transactions are linked to a clean name, entity type, location, and category. Similarly, account data is standardized and returned with a clean name, number, balance, and other meta information where available.
