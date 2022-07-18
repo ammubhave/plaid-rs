@@ -126,7 +126,7 @@ struct SyncTransactionsRequest<'a> {
     client_id: &'a str,
     secret: &'a str,
     access_token: &'a str,
-    cursor: &'a str,
+    cursor: Option<String>,
     count: u8
     // #[serde(skip_serializing_if = "Option::is_none")]
     // options: Option<GetTransactionsOptions<'a>>,
@@ -194,7 +194,7 @@ impl Client {
     pub async fn sync_transactions<'a>(
         &self,
         access_token: &str,
-        cursor: &str,
+        cursor: Option<String>,
         count: u8,
         // options: Option<GetTransactionsOptions<'a>>,
     ) -> Result<SyncTransactionsResponse> {
