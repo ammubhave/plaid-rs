@@ -41,9 +41,9 @@ impl Client {
         let plaid_environment = match &std::env::var("PLAID_ENVIRONMENT")
         .expect("Missing environment variable: PLAID_ENVIRONMENT. Must be set to SANDBOX, DEVELOPMENT or PRODUCTION")
         .to_string().to_lowercase()[..] {
-            "SANDBOX" => Environment::Sandbox,
-            "DEVELOPMENT" => Environment::Development,
-            "PRODUCTION" => Environment::Production,
+            "sandbox" => Environment::Sandbox,
+            "development" => Environment::Development,
+            "production" => Environment::Production,
             s => panic!("Environment variable PLAID_ENVIRONMENT must be set to SANDBOX, DEVELOPMENT or PRODUCTION. Is actually {}", s),
         };
 
